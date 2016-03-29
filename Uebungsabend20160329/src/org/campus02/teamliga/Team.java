@@ -85,6 +85,31 @@ public class Team implements Comparable<Team>  {
 		
 	}
 
+	public void gameFinished(int goalsScored, int goalsGot) throws GoalsMustbePositiveException
+	{
+		if (goalsGot < 0 || goalsScored < 0)
+			throw new GoalsMustbePositiveException();
+		
+		this.playedRounds++;
+		this.goalsGot += goalsGot;
+		this.goalsScored += goalsScored;
+		
+		if (goalsScored > goalsGot)
+		{
+			this.points += 3;
+			this.countWon++;
+		} 
+		else if (goalsScored < goalsGot)
+		{
+			
+			this.countLost ++;
+		}
+		else
+		{
+			this.points += 1;
+			this.countDraw++;
+		}
+	}
 
 	
 }

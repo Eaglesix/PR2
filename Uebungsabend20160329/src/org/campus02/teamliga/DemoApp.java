@@ -2,7 +2,7 @@ package org.campus02.teamliga;
 
 public class DemoApp {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws TeamNotFoundException, LigaException {
 		// TODO Auto-generated method stub
 			
 		Liga bundesLiga = new Liga("T-Mobile Liga");
@@ -11,12 +11,12 @@ public class DemoApp {
 			bundesLiga.add("SK Rapid");
 			bundesLiga.add("Wacker Tirol");
 			bundesLiga.add("AC Klagenfurt");
-			bundesLiga.add("SK Sturm");
 		} catch (TeamAlreadyExistsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		bundesLiga.newGame("SK Rapid", 4, "SK Sturm", 3);
 		
 		System.out.println("--- aktuelle tabelle");
 		System.out.println(bundesLiga.getTeamsByPoints());

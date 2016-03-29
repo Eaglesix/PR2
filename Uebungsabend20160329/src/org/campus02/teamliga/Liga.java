@@ -18,13 +18,8 @@ public class Liga {
 	public void add(String name) 
 			throws TeamAlreadyExistsException
 	{
-		for (Team team : teams) {
-			if (team.getName().equals(name))
-			{
-				// FEHLERFALL
-				throw new TeamAlreadyExistsException();
-			}
-		}
+		if (findTeam(name) != null)
+			throw new TeamAlreadyExistsException();
 
 		
 		this.teams.add(new Team(name));
@@ -42,6 +37,42 @@ public class Liga {
 		teams.sort(new AlphapeticComparator());
 		
 		return teams;
+	}
+	
+	private Team findTeam(String name)
+	{
+		for (Team team : teams) {
+			if (team.getName().equals(name))
+				return team;
+		}
+		return null;
+	}
+	
+	public void newGame(String teamA, int goalsA, 
+			String teamB, int goalsB) throws TeamNotFoundException, LigaException
+	{
+		Team a = null;// = findTeam(teamA);
+		Team b = null;// = findTeam(teamB);
+		
+		for (Team team : teams) {
+			if (team.getName().equals(teamA))
+				a = team;
+			if (team.getName().equals(teamB))
+				b = team;
+			
+			if (a != null && b != null)
+				break;
+		}
+		
+		if  (a == null || b == null)
+			throw new TeamNotFoundException();
+		
+		try {
+			a.gameFinished(goalsA, goalsB);
+			b.gameFinished(goalsB, goalsA);
+		} catch (GoalsMustbePositiveException e) {
+			throw new LigaException();
+		}
 	}
 
 	@Override
