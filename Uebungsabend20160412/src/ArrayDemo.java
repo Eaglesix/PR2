@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class ArrayDemo {
 
@@ -41,6 +43,46 @@ public class ArrayDemo {
 		System.out.println(array.length);
 		System.out.println(array[0].length);
 		
+		int[]top6 =findTop6Numbers(array);
+		for (int i : top6) {
+			System.out.println(i);
+		}
+		
+	}
+	
+	public static int[] findTop6Numbers(int[][] numbers)
+	{
+		ArrayList<LottoZahlenAnzahl> list =
+					new ArrayList<>();
+
+		for (int i = 0; i < numbers.length; i++) {
+			for (int y  = 0; y < numbers[i].length; y++) {
+				int zahlinArray = numbers[i][y];
+
+				boolean gefunden =false;
+				for (LottoZahlenAnzahl lottoZahlenAnzahl 
+						: list) {
+					if (lottoZahlenAnzahl.getZahl() 
+							== zahlinArray)
+					{
+						// gefunden
+						lottoZahlenAnzahl.increment();
+						gefunden = true;
+					}
+				}
+				if (!gefunden)
+				{
+					list.add(new LottoZahlenAnzahl(zahlinArray));
+				}
+			}
+		}
+		
+		Collections.sort(list);
+		int[] top6 = new int[6];
+		for(int i = 0; i < 6;i++)
+			top6[i] = list.get(i).getZahl();
+				
+		return top6;
 	}
 
 }
