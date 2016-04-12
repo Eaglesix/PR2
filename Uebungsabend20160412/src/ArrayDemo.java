@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class ArrayDemo {
 
@@ -48,7 +49,30 @@ public class ArrayDemo {
 			System.out.println(i);
 		}
 		
+		System.out.println(getCountToNumbers(array));
 	}
+	
+	
+	public static HashMap<Integer, Integer> getCountToNumbers(int[][] numbers)
+	{
+		HashMap<Integer, Integer> map = new
+				HashMap<>();
+		for(int i = 1; i<= 45;i++)
+			map.put(i, 0);
+		
+		for(int x = 0; x < numbers.length; x++)
+		{
+			for (int y = 0; 
+					y < numbers[x].length; y++)
+			{
+				map.put(numbers[x][y],
+						map.get(numbers[x][y]) + 1);
+			}
+		}
+		
+		return map;
+	}
+	
 	
 	public static int[] findTop6Numbers(int[][] numbers)
 	{
