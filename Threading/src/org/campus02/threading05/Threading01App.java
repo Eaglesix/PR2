@@ -1,4 +1,4 @@
-package org.campus02.threading04;
+package org.campus02.threading05;
 
 public class Threading01App {
 
@@ -12,9 +12,11 @@ public class Threading01App {
 		tcpA.start();
 		tcpB.start();
 		
-		Thread.sleep(20_000);
-		tcpA.setStopped(true);
-		tcpB.setStopped(true);
+		Thread.sleep(3000);
+		tcpA.interrupt();
+		
+		Thread.sleep(3000);
+		tcpB.interrupt();
 		
 		// Auf Ende der Ausführung warten
 		tcpA.join();
