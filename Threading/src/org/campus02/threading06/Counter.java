@@ -13,7 +13,7 @@ public class Counter implements Runnable {
 		}
 	}
 
-	private void Increase() {
+	public synchronized void Increase() {
 		synchronized (lock) {
 			Counter++;
 		}

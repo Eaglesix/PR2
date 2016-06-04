@@ -8,7 +8,7 @@ public class Threading06App {
 		Counter c2 = new Counter();
 		
 		Thread th1 = new Thread(c1);
-		Thread th2 = new Thread(c2);
+		Thread th2 = new Thread(c1);
 		
 		th1.start(); th2.start();
 		

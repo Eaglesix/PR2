@@ -12,7 +12,7 @@ public class Counter implements Runnable {
 	public void run() {
 
 		for (int i = 0; i < 1_000_000; i++) {
-			
+		
 			
 			lock.lock();
 		
@@ -25,6 +25,7 @@ public class Counter implements Runnable {
 				lock.unlock();
 			}			
 		}
+		System.out.println(Counter);
 	}
 
 	private void Increase() {
