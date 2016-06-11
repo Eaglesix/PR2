@@ -69,7 +69,7 @@ public class ChatClient implements Runnable {
 						{
 							if (chatClient.name.equals(commands[1]))
 							{
-								chatClient.sendMessage("private msg from" + name + " >> " + commands[2]);
+								chatClient.sendMessage("private msg from " + name + " >> " + commands[2]);
 							}
 						}
 					}
@@ -91,8 +91,7 @@ public class ChatClient implements Runnable {
 				{
 					Logger.LogMessage(this.name + " wrong command " + line);
 
-					printWriter.println("wrong command");
-					printWriter.flush();
+					sendMessage("wrong command");
 				}
 			}
 		} catch (IOException e) {
