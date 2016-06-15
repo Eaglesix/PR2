@@ -11,10 +11,24 @@ import java.util.ArrayList;
 public class ClientCommunication implements Runnable {
 
 	private Socket client;
+	private boolean stopRequested;
 	
 	ClientCommunication (Socket client)
 	{
 		this.client = client;
+	}
+	
+	public void stop()
+	{
+		stopRequested = true;
+		try {
+			
+			client.close(); // Close beendet die Verbindung löst Exception bei Read aus
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public  void processClient()
@@ -28,7 +42,7 @@ public class ClientCommunication implements Runnable {
 				)
 		{
 			String line;
-			while ((line = br.readLine()) != null
+			while (!stopRequested && (line = br.readLine()) != null
 					&& !line.equalsIgnoreCase("exit"))
 			{
 				String[] commands = line.split(" ");

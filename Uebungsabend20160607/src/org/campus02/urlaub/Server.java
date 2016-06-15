@@ -22,39 +22,42 @@ public class Server {
 			System.out.println(u.toString());
 		*/
 		
-		ConsoleReader cr = new  ConsoleReader();
-		Thread thConsole = new Thread(cr);
-		thConsole.start();
+		
 		
 		ServerSocket server;
+		ArrayList<ClientCommunication> connectedClients = new ArrayList<>(); 
 		try {
 			server = new ServerSocket(1111);
 			
-			Scanner sc = new Scanner(System.in);
+			ConsoleReader cr = new  ConsoleReader(server);
+			Thread thConsole = new Thread(cr);
+			thConsole.start();
+			
 			
 			while (!cr.Stop)
 			{
 				Socket client = server.accept();
 			
-				Thread th = new Thread (new Runnable() {
-					
-					@Override
-					public void run() {
-						processClient(client);
-					}
-				});
+				ClientCommunication cc = new ClientCommunication(client);
+				
+				Thread th = new Thread (cc);
 				th.start();
 				System.out.println(cr.Stop);
+				connectedClients.add(cc);
 			}
 			System.out.println("finished");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		for (ClientCommunication cc : connectedClients) {
+			cc.stop();
+		}
 
 	}
 	
-	public static void processClient(Socket client)
+	/*public static void processClient(Socket client)
 	{
 		try (
 				BufferedReader br =
@@ -90,7 +93,7 @@ public class Server {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	
 
